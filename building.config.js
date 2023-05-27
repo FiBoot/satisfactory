@@ -72,10 +72,10 @@ BUILDINGS = [
         name: 'Manufacturer',
         size: { x: 180, y: 200},
         inputs: [
-            { x: -45, y: 100, o: ORIENTATION.SOUTH },
-            { x: -15, y: 100, o: ORIENTATION.SOUTH },
-            { x: 15, y: 100 , o: ORIENTATION.SOUTH},
-            { x: 45, y: 100 , o: ORIENTATION.SOUTH},
+            { x: -60, y: 100, o: ORIENTATION.SOUTH },
+            { x: -20, y: 100, o: ORIENTATION.SOUTH },
+            { x: 20, y: 100 , o: ORIENTATION.SOUTH},
+            { x: 60, y: 100 , o: ORIENTATION.SOUTH},
         ],
         outputs: [
             { x: 0, y: -100 , o: ORIENTATION.NORTH},

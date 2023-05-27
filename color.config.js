@@ -1,8 +1,8 @@
 COLORS = {
-    GREEN: 'green',
-    RED: 'red',
-    LINE: '#333',
-    BACKGROUND: '#999',
-    HOVER: '#AAA',
-    EMPTY: '#EEE',
+    GREEN: '#009933',
+    RED: '#FF1111',
+    BORDER: '#333333',
+    BACKGROUND: '#999999',
+    HOVER: '#AAAAAA',
+    EMPTY: '#EEEEEE',
 }
