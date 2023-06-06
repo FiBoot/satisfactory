@@ -1,8 +1,9 @@
 COLORS = {
+    BACKGROUND: '#111111',
     GREEN: '#009933',
     RED: '#FF1111',
-    BORDER: '#333333',
-    BACKGROUND: '#999999',
-    HOVER: '#AAAAAA',
+    BORDER: '#999999',
+    BUILDING: '#333333',
+    HOVER: '#444444',
     EMPTY: '#EEEEEE',
 }

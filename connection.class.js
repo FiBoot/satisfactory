@@ -1,20 +1,34 @@
 const CONNECTION_CIRCLE_SIZE = 10
 
 class Connection {
-	constructor(x, y, input = true) {
+	constructor({ x, y, type, orientation }) {
 		this.selected = false
 		this.x = x
 		this.y = y
-		this.input = input
+		this.type = type
+		this.orientation = orientation
 	}
 
-	hover() {
-		return dist(mouseX, mouseY, this.x, this.y) < CONNECTION_CIRCLE_SIZE
+	rotate() {
+		const x = this.x,
+			y = this.y
+		this.x = y * -1
+		this.y = x
+		this.orientation = (this.orientation + 1) % ORIENTATIONS.length
 	}
 
-	draw() {
-		fill(this.hover() ? (this.input ? COLORS.GREEN : COLORS.RED) : COLORS.EMPTY)
-		stroke(this.input ? COLORS.GREEN : COLORS.RED)
-		circle(this.x, this.y, CONNECTION_CIRCLE_SIZE)
+	isInput() {
+		return this.type === CONNECTION_TYPES.INPUT
+	}
+
+	mouseOver(x, y) {
+		return dist(x + this.x, y + this.y, mouseX, mouseY) < CONNECTION_CIRCLE_SIZE
+	}
+
+	draw(x, y) {
+		const connectionColor = this.isInput() ? COLORS.GREEN : COLORS.RED
+		fill(this.mouseOver(x, y) ? connectionColor : COLORS.BUILDING)
+		stroke(connectionColor)
+		circle(x + this.x, y + this.y, CONNECTION_CIRCLE_SIZE)
 	}
 }

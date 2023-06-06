@@ -1,50 +1,47 @@
 class Building {
-	constructor(x, y, data) {
+	constructor({ name, size, connections }, x = 0, y = 0) {
 		this.selected = false
-		this.x = x - data.size.x / 2
-		this.y = y - data.size.y / 2
-		this.data = data
+		this.name = name
+		this.size = size
+		this.x = x
+		this.y = y
+
 		this.connections = []
-
-		if (this.data.inputs)
-			for (var input of this.data.inputs)
-				this.connections.push(
-					new Connection(this.x + input.x + this.data.size.x / 2, this.y + input.y + this.data.size.y / 2)
-				)
-
-		if (this.data.outputs)
-			for (var output of this.data.outputs)
-				this.connections.push(
-					new Connection(
-						this.x + output.x + this.data.size.x / 2,
-						this.y + output.y + this.data.size.y / 2,
-						false
-					)
-				)
-
+		if (connections) for (let connection of connections) this.connections.push(new Connection(connection))
 		this.draw()
 	}
 
-	draw() {
-		this.mouseOver()
-		stroke(COLORS.BORDER)
-		fill(this.selected ? COLORS.HOVER : COLORS.BACKGROUND)
-		rect(this.x, this.y, this.data.size.x, this.data.size.y, UNIT / 2)
-		for (var connection of this.connections) connection.draw()
+	setPos(x, y) {
+		this.x = x
+		this.y = y
 	}
 
-	openMenu() {}
+	rotate() {
+		const { x, y } = this.size
+		this.size = { x: y, y: x }
+		for (let connection of this.connections) connection.rotate()
+	}
+
+	mouseIn() {
+		return (
+			mouseX > this.x - this.size.x / 2 &&
+			mouseX < this.x + this.size.x / 2 &&
+			mouseY > this.y - this.size.y / 2 &&
+			mouseY < this.y + this.size.y / 2
+		)
+	}
 
 	mouseOver() {
 		this.selected = this.mouseIn()
 	}
 
-	mouseIn() {
-		return (
-			mouseX > this.x &&
-			mouseX < this.x + this.data.size.x &&
-			mouseY > this.y &&
-			mouseY < this.y + this.data.size.y
-		)
+	draw() {
+		this.mouseOver()
+		stroke(COLORS.BORDER)
+		fill(this.selected ? COLORS.HOVER : COLORS.BUILDING)
+		rect(this.x - this.size.x / 2, this.y - this.size.y / 2, this.size.x, this.size.y, UNIT / 2)
+		for (let connection of this.connections) connection.draw(this.x, this.y)
 	}
+
+	openMenu() {}
 }
